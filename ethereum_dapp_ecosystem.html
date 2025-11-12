@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Foundation Dapp Ecosystem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f1419 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+            gap: 25px;
+        }
+
+        .eth-logo {
+            width: 70px;
+            height: auto;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 20px rgba(135, 169, 240, 0.4));
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #CAB3F5 0%, #87A9F0 50%, #B8FBF6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #9CA3AF;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header p:hover {
+            color: #B8FBF6;
+            border-color: rgba(135, 169, 240, 0.3);
+            background: rgba(135, 169, 240, 0.05);
+        }
+
+        .search-icon {
+            font-size: 1.1rem;
+            opacity: 0.6;
+        }
+
+        .search-input {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 300;
+            padding: 12px 20px 12px 45px;
+            border-radius: 12px;
+            border: 2px solid rgba(135, 169, 240, 0.5);
+            background: rgba(52, 65, 192, 0.15);
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            transition: all 0.15s ease;
+        }
+
+        .search-input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: #87A9F0;
+            pointer-events: none;
+        }
+
+        .search-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .search-input:focus {
+            border-color: rgba(184, 251, 246, 0.6);
+            background: rgba(52, 65, 192, 0.25);
+            box-shadow: 0 0 20px rgba(135, 169, 240, 0.2);
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(135, 169, 240, 0.2);
+            border: none;
+            color: #B8FBF6;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+        }
+
+        .search-clear:hover {
+            background: rgba(135, 169, 240, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 20px;
+        }
+
+        .footer-credit p {
+            font-size: 0.9rem;
+            color: #9CA3AF;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-credit p:first-child {
+            font-size: 1.05rem;
+        }
+
+        .footer-credit p:last-child {
+            margin: 0;
+        }
+
+        .footer-credit strong {
+            color: #B8FBF6;
+        }
+
+        .footer-credit a {
+            color: #CAB3F5;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer-credit a:hover {
+            color: #EECBC0;
+            transform: translateX(3px);
+        }
+
+        .footer-credit .separator {
+            margin: 0 8px;
+            color: rgba(135, 169, 240, 0.3);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9CA3AF;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        .no-results strong {
+            color: #B8FBF6;
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category-cluster {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border: 2px solid rgba(135, 169, 240, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-cluster::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            height: 5px;
+            background: linear-gradient(90deg, #CAB3F5, #87A9F0, #B8FBF6);
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            border-radius: 19px 19px 0 0;
+        }
+
+        .category-cluster:hover {
+            background: linear-gradient(135deg, rgba(135, 169, 240, 0.15) 0%, rgba(184, 251, 246, 0.1) 100%);
+            border-color: rgba(135, 169, 240, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(135, 169, 240, 0.3);
+        }
+
+        .category-cluster:hover::before {
+            opacity: 1;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(135, 169, 240, 0.2);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+
+        .category-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .app-count {
+            font-size: 0.9rem;
+            color: #B8FBF6;
+            background: rgba(52, 65, 192, 0.3);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: visible;
+            padding: 4px;
+            margin: -4px;
+        }
+
+        .apps-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .apps-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .apps-grid::-webkit-scrollbar-thumb {
+            background: rgba(135, 169, 240, 0.5);
+            border-radius: 3px;
+        }
+
+        .apps-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(135, 169, 240, 0.8);
+        }
+
+        .app-item {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 8px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+        }
+
+        .app-item:hover {
+            background: rgba(135, 169, 240, 0.15);
+            border-color: rgba(184, 251, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .app-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: contain;
+            padding: 3px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .app-logo.error {
+            background: rgba(52, 65, 192, 0.15);
+            color: #87A9F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .app-name {
+            font-size: 0.75rem;
+            color: #E5E7EB;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            max-height: 2.4em;
+        }
+
+        /* Category-specific colors - using Ethereum Foundation palette */
+        .category-defi { background: linear-gradient(135deg, #CAB3F5 0%, #C8B2F5 100%); }
+        .category-social { background: linear-gradient(135deg, #EECBC0 0%, #e0bdb0 100%); }
+        .category-privacy { background: linear-gradient(135deg, #3441C0 0%, #2a3699 100%); }
+        .category-collectibles { background: linear-gradient(135deg, #B8FBF6 0%, #a0ebe6 100%); }
+        .category-gaming { background: linear-gradient(135deg, #87A9F0 0%, #7095e8 100%); }
+        .category-dao { background: linear-gradient(135deg, #CAB3F5 0%, #b89fe5 100%); }
+        .category-productivity { background: linear-gradient(135deg, #B8FBF6 0%, #95e8e0 100%); }
+        .category-bridge { background: linear-gradient(135deg, #87A9F0 0%, #6d8fe0 100%); }
+
+        @media (max-width: 1600px) {
+            .ecosystem-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .ecosystem-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <svg class="eth-logo" viewBox="0 0 142 215" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(-1259.52, -529.088)">
+                    <!-- Bottom -->
+                    <g transform="matrix(1.08181,0,0,-1.03277,-108.829,1366.48)">
+                        <path d="M1394.74,693.463L1330.36,604.024L1330.36,654.238L1394.74,693.463Z" fill="#C8B2F5" stroke="#3441C0" stroke-width="2.27"/>
+                    </g>
+                    <g transform="matrix(-1.08181,0,0,-1.03277,2769.57,1366.48)">
+                        <path d="M1394.74,693.463L1330.36,604.024L1330.36,654.238L1394.74,693.463Z" fill="#EECBC0" stroke="#3441C0" stroke-width="2.27"/>
+                    </g>
+                    <!-- Top -->
+                    <g transform="matrix(-1,0,0,1,2659.32,-0.0263692)">
+                        <path d="M1398.61,639.614L1328.95,608.641L1328.95,679.249L1398.61,639.614Z" fill="#87A9F0" stroke="#3441C0" stroke-width="2.4"/>
+                    </g>
+                    <g transform="matrix(1,0,0,1,1.41643,-0.0263692)">
+                        <path d="M1398.61,639.614L1328.95,608.641L1328.95,679.249L1398.61,639.614Z" fill="#CAB3F5" stroke="#3441C0" stroke-width="2.4"/>
+                    </g>
+                    <g transform="matrix(-1.08181,0,0,1.03277,2769.57,-93.5314)">
+                        <path d="M1394.74,709.855L1330.36,604.024L1330.36,679.865L1394.74,709.855Z" fill="#EECBC0" stroke="#3441C0" stroke-width="2.27"/>
+                    </g>
+                    <g transform="matrix(1.08181,0,0,1.03277,-108.829,-93.5314)">
+                        <path d="M1394.74,709.855L1330.36,604.024L1330.36,679.865L1394.74,709.855Z" fill="#B8FBF6" stroke="#3441C0" stroke-width="2.27"/>
+                    </g>
+                </g>
+            </svg>
+            <div class="header-text">
+                <h1>Ethereum Foundation Dapp Ecosystem</h1>
+                <p id="subtitle" onclick="activateSearch()">
+                    <span class="search-icon">🔍</span>
+                    Explore the decentralized applications powering the future
+                </p>
+                <div id="search-container" class="search-container" style="display: none;">
+                    <span class="search-input-icon">🔍</span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search dapps..." oninput="filterDapps()" />
+                    <button class="search-clear" onclick="deactivateSearch()" title="Clear search">✕</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ecosystem-grid" id="ecosystem-grid">
+            <!-- Categories will be injected here by JavaScript -->
+        </div>
+
+        <div class="footer-credit">
+            <p>Total Applications: <strong id="total-apps">0</strong> across <strong>8</strong> categories</p>
+            <p>
+                Built by <a href="https://twitter.com/erinmagennis" target="_blank" rel="noopener noreferrer">@erinmagennis</a>
+                <span class="separator">|</span>
+                Get your <a href="https://twitter.com/messages/compose?recipient_id=1519792154&text=Hi!%20Love%20your%20interactive%20Ethereum%20dapp%20dashboard.%20We're%20looking%20for%20similar%20tooling%20for%20grants%20tracking,%20portfolio%20management,%20and%20automated%20reporting.%20Let's%20chat%20about%20building%20this%20for%20our%20ecosystem?" target="_blank" rel="noopener noreferrer">ecosystem toolkit →</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        function activateSearch() {
+            const subtitle = document.getElementById('subtitle');
+            const searchContainer = document.getElementById('search-container');
+            const searchInput = document.getElementById('search-input');
+
+            subtitle.style.display = 'none';
+            searchContainer.style.display = 'block';
+            searchInput.focus();
+        }
+
+        function deactivateSearch() {
+            const subtitle = document.getElementById('subtitle');
+            const searchContainer = document.getElementById('search-container');
+            const searchInput = document.getElementById('search-input');
+
+            searchInput.value = '';
+            searchContainer.style.display = 'none';
+            subtitle.style.display = 'block';
+
+            // Reset all apps to visible
+            filterDapps();
+        }
+
+        function filterDapps() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const categoryBlocks = document.querySelectorAll('.category-cluster');
+            let totalVisible = 0;
+
+            categoryBlocks.forEach(block => {
+                const appItems = block.querySelectorAll('.app-item');
+                let visibleInCategory = 0;
+
+                appItems.forEach(item => {
+                    const appName = item.getAttribute('title').split('\n')[0].toLowerCase();
+
+                    if (appName.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                        visibleInCategory++;
+                        totalVisible++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Hide category if no apps match
+                if (visibleInCategory === 0 && searchTerm !== '') {
+                    block.style.display = 'none';
+                } else {
+                    block.style.display = 'block';
+                }
+            });
+
+            // Show "no results" message if needed
+            const grid = document.getElementById('ecosystem-grid');
+            let noResultsMsg = document.getElementById('no-results');
+
+            if (totalVisible === 0 && searchTerm !== '') {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'no-results';
+                    noResultsMsg.className = 'no-results';
+                    grid.appendChild(noResultsMsg);
+                }
+                noResultsMsg.innerHTML = `No dapps found for "<strong>${searchTerm}</strong>"`;
+                noResultsMsg.style.display = 'block';
+            } else if (noResultsMsg) {
+                noResultsMsg.style.display = 'none';
+            }
+        }
+
+        // Category data with icons
+        const categoryConfig = {
+            'DeFi': { icon: '💰', class: 'category-defi' },
+            'Social': { icon: '👥', class: 'category-social' },
+            'Privacy': { icon: '🔒', class: 'category-privacy' },
+            'Collectibles': { icon: '🎨', class: 'category-collectibles' },
+            'Gaming': { icon: '🎮', class: 'category-gaming' },
+            'DAO': { icon: '🏛️', class: 'category-dao' },
+            'Productivity': { icon: '⚙️', class: 'category-productivity' },
+            'Bridge': { icon: '🌉', class: 'category-bridge' }
+        };
+
+        // Embedded data
+        const data = {
+        "DeFi": [
+                {
+                        "name": "Aave",
+                        "url": "https://aave.com",
+                        "logo": "https://i.imgur.com/iaxZ9N8.png",
+                        "description": "Aave is a decentralised non-custodial liquidity protocol where users can participate as suppliers or borrowers. Suppliers provide liquidity to the market while earning interest, and borrowers can access liquidity by providing collateral that exceeds the borrowed amount."
+                },
+                {
+                        "name": "Sky/Maker - USDS",
+                        "url": "https://sky.money/",
+                        "logo": "https://i.imgur.com/qwvHjfZ.png",
+                        "description": "Sky.money is a non-custodial gateway to the decentralized Sky Protocol, which centers around the USDS stablecoin."
+                },
+                {
+                        "name": "Ethena - USDE",
+                        "url": "https://ethena.fi/",
+                        "logo": "https://i.imgur.com/4Y0s8zC.png",
+                        "description": "Ethena is a synthetic dollar protocol built on Ethereum that provides a crypto-native solution for money, USDe, alongside a globally accessible dollar savings asset, sUSDe."
+                },
+                {
+                        "name": "Uniswap",
+                        "url": "https://app.uniswap.org/",
+                        "logo": "https://i.imgur.com/6NqxUnZ.png",
+                        "description": "Uniswap is an automated liquidity protocol powered by a constant product formula and implemented in a system of non-upgradeable smart contracts on the Ethereum blockchain. It obviates the need for trusted intermediaries, prioritizing decentralization, censorship resistance, and security."
+                },
+                {
+                        "name": "Pendle",
+                        "url": "https://www.pendle.finance/",
+                        "logo": "https://i.imgur.com/WyUeZqC.png",
+                        "description": "Pendle is a DeFi protocol focused on yield trading, allowing users to both fix or leverage their yield."
+                },
+                {
+                        "name": "Spark",
+                        "url": "https://spark.fi/",
+                        "logo": "https://i.imgur.com/XsBN52D.png",
+                        "description": "Spark Fi is a non-custodial DeFi protocol that allows users to lend and borrow digital assets through SparkLend, while earning passive income via the USDS stablecoin and its associated Sky Savings Rate."
+                },
+                {
+                        "name": "Morpho",
+                        "url": "https://morpho.org/",
+                        "logo": "https://i.imgur.com/IPLyiMT.png",
+                        "description": "Morpho is an open, efficient, and resilient platform that allows anyone to earn yield and borrow assets. At the same time, developers or businesses can create markets, curate vaults, and build a range of applications on its flexible, permissionless infrastructure."
+                },
+                {
+                        "name": "Compound",
+                        "url": "https://compound.finance/",
+                        "logo": "https://i.imgur.com/yFoeO1U.png",
+                        "description": "Compound is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Accounts can also earn interest by supplying the base asset to the protocol."
+                },
+                {
+                        "name": "Curve",
+                        "url": "https://www.curve.finance/",
+                        "logo": "https://i.imgur.com/NmXvivo.png",
+                        "description": "Curve.fi is a non-custodial decentralized exchange that revolutionized stablecoin trading. It began by offering superior exchange rates for stablecoin swaps (like DAI to USDC) through liquidity pools, where users earn yield by depositing their assets."
+                },
+                {
+                        "name": "Balancer",
+                        "url": "https://balancer.fi/",
+                        "logo": "https://i.imgur.com/9yZ7IJ8.png",
+                        "description": "Balancer is a decentralized automated market maker (AMM) protocol built on Ethereum with a clear focus on fungible and yield-bearing liquidity. Balancer's success is intrinsically linked to the success of protocols and products built on the platform."
+                },
+                {
+                        "name": "Usual ",
+                        "url": "https://usual.money/",
+                        "logo": "https://i.imgur.com/MPWo9qE.png",
+                        "description": "Usual is a decentralized protocol, embracing the shape of a decentralized banking system. It issues a fiat-backed stablecoin, collateralized by Real-World Assets (RWAs), combining the security of real assets with the composability and liquidity of DeFi."
+                },
+                {
+                        "name": "Fluid",
+                        "url": "https://fluid.io/",
+                        "logo": "https://i.imgur.com/5Oh1Lek.png",
+                        "description": "Fluid is a DeFi protocol combining a liquidity layer, automated limits, lending and vault protocols, robust oracle system, and DEX protocol,"
+                },
+                {
+                        "name": "Frax",
+                        "url": "https://frax.finance/",
+                        "logo": "https://i.imgur.com/2lwTQ6d.png",
+                        "description": "Frax currently issues 3 stablecoins: FRAX, FPI, and frxETH, along with numerous other non-stablecoin tokens. There are also multiple contract groups or \"subprotocols\" within it that integrate these tokens to provide utility and stability, including Fraxtal, a modular L2 chain."
+                },
+                {
+                        "name": "Aerodrome",
+                        "url": "https://aerodrome.finance/",
+                        "logo": "https://i.imgur.com/ESTKcyO.png",
+                        "description": "Aerodrome is a decentralized exchange where you can execute low-fee swaps, deposit tokens to earn rewards, and actively participate in the onchain economy."
+                },
+                {
+                        "name": "Moonwell",
+                        "url": "https://moonwell.fi/",
+                        "logo": "https://i.imgur.com/cIgVDSd.png",
+                        "description": "Put your digital assets to work. Lend or borrow to handle whatever life throws your way. Pay it back on your own schedule, with no monthly payments or additional fees."
+                },
+                {
+                        "name": "Franklin Templeton - BENJI",
+                        "url": "https://digitalassets.franklintempleton.com/benji/",
+                        "logo": "https://i.imgur.com/e7QgHwP.png",
+                        "description": "Benji is Franklin Templeton's proprietary blockchain-integrated recordkeeping system that enables the tokenization and servicing of mutual funds on public blockchain infrastructure."
+                },
+                {
+                        "name": "Synthetix",
+                        "url": "https://synthetix.io/",
+                        "logo": "https://i.imgur.com/v4Xkjp7.png",
+                        "description": "Synthetix provides liquidity for permissionless derivatives like perpetual futures, options, parimutuel markets, and more across EVM chains."
+                },
+                {
+                        "name": "ZeroLend",
+                        "url": "https://zerolend.xyz/",
+                        "logo": "https://i.imgur.com/WKj2WDX.png",
+                        "description": "ZeroLend is a user-friendly and frictionless lending experience to onboard the masses to Defi. Built on L2s."
+                },
+                {
+                        "name": "SyncSwap",
+                        "url": "https://syncswap.xyz/",
+                        "logo": "https://i.imgur.com/vpk2LXa.png",
+                        "description": "Powered by zero-knowledge technology, SyncSwap brings more people easy-to-use and low-cost DeFi with complete Ethereum security."
+                },
+                {
+                        "name": "Ekubo",
+                        "url": "https://ekubo.org/",
+                        "logo": "https://i.imgur.com/xFOVA9S.png",
+                        "description": "Ekubo is an automated market maker, with several unique features including concentrated liquidity and a extensible and gas efficient architecture."
+                },
+                {
+                        "name": "Maple",
+                        "url": "https://maple.finance/",
+                        "logo": "https://i.imgur.com/39h1fde.png",
+                        "description": "Maple delivers full-spectrum yield strategies and financing across USDC, USDT, BTC, and more \u2013 for institutions and onchain participants around the world."
+                },
+                {
+                        "name": "Centrifuge",
+                        "url": "https://centrifuge.io/",
+                        "logo": "https://i.imgur.com/JSO0lIV.png",
+                        "description": "Centrifuge is the platform for tokenized real-world assets, providing the infrastructure and ecosystem to tokenize, manage, and invest into RWAs."
+                },
+                {
+                        "name": "Goldfinch",
+                        "url": "https://goldfinch.finance/",
+                        "logo": "https://i.imgur.com/iPhuqPh.png",
+                        "description": "Goldfinch is a decentralized credit protocol that enables crypto borrowing without crypto collateral. It connects investors with real-world businesses."
+                },
+                {
+                        "name": "Superstate",
+                        "url": "https://superstate.com/",
+                        "logo": "https://i.imgur.com/xDIoI7M.png",
+                        "description": "Superstate connects financial assets with crypto capital markets through on-chain public listings and tokenized securities."
+                },
+                {
+                        "name": "Tether - USDT",
+                        "url": "https://tether.to/",
+                        "logo": "https://i.imgur.com/Pw4Q7Qf.png",
+                        "description": "Tether (USDT) is a stablecoin, a cryptocurrency pegged to and backed by fiat currencies like the U.S. dollar."
+                },
+                {
+                        "name": "Cicle - USDC",
+                        "url": "https://circle.com/",
+                        "logo": "https://i.imgur.com/vpadKkU.png",
+                        "description": "USDC is a digital dollar backed 100% by highly liquid cash and cash-equivalent assets and is redeemable 1:1 for US dollars."
+                },
+                {
+                        "name": "Ondo Global Markets",
+                        "url": "https://app.ondo.finance/",
+                        "logo": "https://i.imgur.com/4FmIMPH.jpeg",
+                        "description": "Ondo designs institutional-grade platforms, assets, and infrastructure to bring financial markets onchain."
+                },
+                {
+                        "name": "PayPal - PYUSD",
+                        "url": "https://www.paypal.com/pyusd",
+                        "logo": "https://i.imgur.com/0MC9QNU.png",
+                        "description": "PayPal USD (PYUSD) is a stablecoin backed by secure and highly liquid assets. Buy, sell, hold, and transfer it in the PayPal app or website."
+                },
+                {
+                        "name": "Etherisc",
+                        "url": "https://etherisc.com/",
+                        "logo": "https://i.imgur.com/ZVOa4fY.png",
+                        "description": "Etherisc provides a complete suite of solutions to build, manage, and inspect decentralized insurance products."
+                },
+                {
+                        "name": "EthicHub",
+                        "url": "https://ethichub.com/",
+                        "logo": "https://i.imgur.com/0QtNZOS.png",
+                        "description": "EthicHub is a social enterprise that connects small farmers with the financing needed to work their land and sell their crops to direct markets."
+                },
+                {
+                        "name": "Stake2Care",
+                        "url": "https://stake2care.msf.ch/",
+                        "logo": "https://i.imgur.com/B6tKdxc.jpeg",
+                        "description": "Stake2Care lets ETH holders donate staking rewards to M\u00e9decins Sans Fronti\u00e8res while keeping their ETH, using Lido and msfETH to support humanitarian aid."
+                },
+                {
+                        "name": "Polymarket",
+                        "url": "https://polymarket.com/",
+                        "logo": "https://i.imgur.com/2YlJ2Jq.png",
+                        "description": "Polymarket is the world\u2019s largest prediction market, allowing you to stay informed and profit from your knowledge by betting on future events across various topics."
+                },
+                {
+                        "name": "Matcha",
+                        "url": "https://matcha.xyz/",
+                        "logo": "https://i.imgur.com/notSz0n.jpeg",
+                        "description": "Matcha is a DEX aggregator that aggregates liquidity from all across web3 to get the optimal price for your trade."
+                },
+                {
+                        "name": "1inch",
+                        "url": "https://1inch.io/",
+                        "logo": "https://i.imgur.com/8NYV5YL.png",
+                        "description": "1inch is an exchange aggregator that scans decentralized exchanges to find the lowest cryptocurrency prices for traders."
+                },
+                {
+                        "name": "Liquity",
+                        "url": "https://www.liquity.org/",
+                        "logo": "https://i.imgur.com/mG928HR.png",
+                        "description": "Liquity V2 is a decentralized borrowing protocol that lets users borrow at fixed rates and mint the stablecoin BOLD"
+                },
+                {
+                        "name": "Cowswap",
+                        "url": "https://cowswap.exchange/",
+                        "logo": "https://i.imgur.com/9wgR8rv.png",
+                        "description": "CoW Swap finds the lowest prices from all decentralized exchanges and DEX aggregators & saves you more with p2p trading and protection from MEV."
+                },
+                {
+                        "name": "LlamaSwap",
+                        "url": "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&tab=swap",
+                        "logo": "https://i.imgur.com/K6LHe0J.png",
+                        "description": "DefiLlama is a DeFi TVL aggregator. It is committed to providing accurate data without ads or sponsored content, as well as transparency."
+                },
+                {
+                        "name": "Sudoswap",
+                        "url": "https://sudoswap.xyz/",
+                        "logo": "https://i.imgur.com/eetwFuT.jpeg",
+                        "description": "Sudoswap is an NFT marketplace designed for creators & collectors with support for any asset and onchain royalties."
+                },
+                {
+                        "name": "PoolTogether",
+                        "url": "https://pooltogether.com/",
+                        "logo": "https://i.imgur.com/wtLeg1K.png",
+                        "description": "PoolTogether is a prize savings game, where users pool yield from their tokens for a chance to win prizes. The protocol is a gamification layer that allows users to have a chance to win big while holding their favourite token."
+                },
+                {
+                        "name": "Notional",
+                        "url": "https://notional.finance/",
+                        "logo": "https://i.imgur.com/vAoxA8j.jpeg",
+                        "description": "Notional Finance is a DeFi platform that offers fixed rate lending and leveraged yield strategies."
+                },
+                {
+                        "name": "Aevo",
+                        "url": "https://aevo.xyz/",
+                        "logo": null,
+                        "description": "Aevo is a high-performance decentralized derivatives exchange, focused on options. The exchange runs on a custom EVM rollup on Ethereum. Aevo operates an offchain orderbook with onchain settlements."
+                },
+                {
+                        "name": "Beefy Finance",
+                        "url": "https://beefy.com/",
+                        "logo": null,
+                        "description": "Beefy is a decentralized, multichain yield optimizer that allows its users to earn compound interest on their crypto holdings."
+                },
+                {
+                        "name": "Rubicon",
+                        "url": "https://rubicon.finance/",
+                        "logo": null,
+                        "description": "Rubicon is an open platform and protocol for trading ERC-20 tokens, built on Ethereum."
+                },
+                {
+                        "name": "Yearn",
+                        "url": "https://yearn.finance/",
+                        "logo": "https://i.imgur.com/HR0IJKk.png",
+                        "description": "Yearn Finance is yield aggregator that automatically seeks out profit-generating strategies for crypto users through smart contracts."
+                },
+                {
+                        "name": "Tellor",
+                        "url": "https://tellor.io/",
+                        "logo": null,
+                        "description": "Tellor is an immutable decentralized oracle protocol that incentivizes an open, permissionless network of data reporting and data validation, ensuring that data can be provided by anyone and checked by everyone."
+                },
+                {
+                        "name": "vaults.fyi",
+                        "url": "https://vaults.fyi/",
+                        "logo": null,
+                        "description": "Discover, compare, and earn DeFi yields\u2014all in one place. Manage positions on Aave, Morpho, Euler, and more."
+                },
+                {
+                        "name": "Panoptic",
+                        "url": "https://panoptic.xyz/",
+                        "logo": null,
+                        "description": "The Panoptic protocol enables the minting, trading, and market-making of perpetual put and call options. All smart contracts are available 24/7 and users can interact with the protocol without the need for intermediaries."
+                },
+                {
+                        "name": "Frankencoin - $ZCHF",
+                        "url": "https://frankencoin.com/",
+                        "logo": null,
+                        "description": "Frankencoin is an Ethereum-based decentralized stablecoin that is collateralized and tracks the value of the Swiss Franc.\u2028\u2028It is distinct in that it functions independently of oracles and may be applied to a wide variety of collateral kinds."
+                },
+                {
+                        "name": "Nomial",
+                        "url": "https://nomial.io/",
+                        "logo": null,
+                        "description": "Nomial allows solvers to access inventory on multiple chains at low latency and cost, without bridging and without fragmenting their capital."
+                },
+                {
+                        "name": "ether.fi",
+                        "url": "https://ether.fi/",
+                        "logo": "https://i.imgur.com/W21OIX5.jpeg",
+                        "description": "ether.fi is a non-custodial Ethereum restaking platform that lets users earn rewards while maintaining control of their assets. Built on Ethereum\u2019s decentralized infrastructure, it extends staking into a liquid, composable layer integrated across DeFi."
+                },
+                {
+                        "name": "Infinex",
+                        "url": "https://infinex.xyz/",
+                        "logo": null,
+                        "description": "The Infinex platform provides access to onchain protocols, services and applications. It is non-custodial, using a novel security architecture centred around onchain smart accounts and passkeys."
+                },
+                {
+                        "name": "Puffer",
+                        "url": "https://www.puffer.fi/",
+                        "logo": null,
+                        "description": "Puffer is a decentralized native liquid restaking protocol built on Eigenlayer. It makes native restaking on Eigenlayer more accessible, allowing anyone to run an Ethereum Proof of Stake validator while supercharging their rewards."
+                },
+                {
+                        "name": "Lido",
+                        "url": "https://lido.fi/",
+                        "logo": null,
+                        "description": "Lido is a liquid staking protocol backed by industry-leading staking providers that supports staking for Ethereum and Polygon. Lido lets users stake their tokens - without locking tokens or maintaining infrastructure - whilst participating in onchain activities, e.g. lending, farming and more."
+                },
+                {
+                        "name": "Slice",
+                        "url": "https://shop.slice.so/",
+                        "logo": null,
+                        "description": "Sell items, mint NFTs, split payments and more from your decentralized store, and allow buyers to purchase in ETH or any token directly from their wallet."
+                },
+                {
+                        "name": "Rocket Pool",
+                        "url": "https://rocketpool.net/",
+                        "logo": null,
+                        "description": "Rocket Pool is a decentralized staking protocol providing liquid & node staking products for the Ethereum ecosystem."
+                },
+                {
+                        "name": "True Markets",
+                        "url": "https://app.truemarkets.org/en",
+                        "logo": "https://i.imgur.com/DOJRAj0.png",
+                        "description": "TrueMarkets is a decentralized prediction market platform that enables users to forecast real-world event outcomes by trading binary options, facilitating real-time sentiment analysis and information discovery."
+                },
+                {
+                        "name": "ETH Strategy",
+                        "url": "https://www.ethstrat.xyz/",
+                        "logo": null,
+                        "description": "ETH Strategy is a protocol designed to provide leveraged exposure to ETH without the traditional risks associated with margin liquidations or volatility decay. "
+                },
+                {
+                        "name": "Flaunch",
+                        "url": "https://flaunch.gg/",
+                        "logo": "https://i.imgur.com/NgyChQC.png",
+                        "description": "Flaunch is a permissionless protocol and engine for all forms of tokenization \u2014 memes, AI agents, products, art, RWAs and more. The protocol allows builders to create their own Token Managers, providing complete flexibility in the monetization of the assets launched."
+                },
+                {
+                        "name": "GMX",
+                        "url": "https://gmx.io/",
+                        "logo": null,
+                        "description": "GMX is a decentralized spot and perpetual exchange that supports low swap fees and low price impact trades. Trading is supported by unique multi-asset pools that earns liquidity providers fees from market making, swap fees and leverage trading."
+                },
+                {
+                        "name": "Royco",
+                        "url": "https://www.royco.org/",
+                        "logo": null,
+                        "description": "Royco Protocol allows anyone to create a market to incentivize any onchain transaction or series of transactions"
+                },
+                {
+                        "name": "Euler Finance",
+                        "url": "https://www.euler.finance/",
+                        "logo": null,
+                        "description": "Euler is a flexible platform for decentralized lending and borrowing, designed to adapt and grow with the evolving world of DeFi."
+                },
+                {
+                        "name": "Ekubo",
+                        "url": "https://ekubo.org/",
+                        "logo": null,
+                        "description": "Ekubo is an automated market maker, with several unique features including concentrated liquidity and an extensible and gas efficient architecture."
+                },
+                {
+                        "name": "Velvet Capital",
+                        "url": "https://www.velvet.capital/",
+                        "logo": null,
+                        "description": "Velvet Capital is an intent-based DeFi operating system that helps launch and manage onchain funds and structured products."
+                },
+                {
+                        "name": "Axal",
+                        "url": "https://yield.getaxal.com/trade",
+                        "logo": null,
+                        "description": "Axal is focused on building a network of verifiable agents for any task. It allows users to create smart web3 systems by just stating their intent, powering agentic markets that find optimal solutions with zero counterparty risk."
+                },
+                {
+                        "name": "Octant",
+                        "url": "https://octant.build/",
+                        "logo": "https://i.imgur.com/f7NBrxB.png",
+                        "description": "Octant aims to become the first self-sustaining global public goods funding ecosystem that balances the common good and individual financial empowerment."
+                },
+                {
+                        "name": "Peanut Protocol",
+                        "url": "https://peanut.to/",
+                        "logo": null,
+                        "description": "With Peanut you can pay and get paid in digital dollars and other cryptocurrencies easily. You can also cash out 2000+ tokens from 20+ EVM chains directly to your bank account."
+                },
+                {
+                        "name": "Coala Pay",
+                        "url": "https://coalapay.org/",
+                        "logo": null,
+                        "description": "Coala Pay powers faster, more efficient aid delivery. The platform connects funding partners, implementing organizations, communities, and local service providers through a secure network that makes moving aid money simpler."
+                },
+                {
+                        "name": "Derive",
+                        "url": "https://www.derive.xyz/",
+                        "logo": null,
+                        "description": "Derive is a decentralized protocol that creates unique and programmable onchain options, perpetuals, and structured products."
+                },
+                {
+                        "name": "Nexus Mutal",
+                        "url": "https://nexusmutual.io/",
+                        "logo": null,
+                        "description": "Nexus Mutual is a decentralized insurance alternative that allows members to join and share risk. Members can purchase cover products that protect against different kinds of risk."
+                },
+                {
+                        "name": "Paradex",
+                        "url": "https://www.paradex.trade/",
+                        "logo": null,
+                        "description": "Paradex is a high-performance crypto-derivatives exchange built on a Starknet Appchain."
+                },
+                {
+                        "name": "Swell",
+                        "url": "https://www.swellnetwork.io/",
+                        "logo": null,
+                        "description": "Swell Network is a liquid staking platform that allows users to earn passive income by staking or restaking ETH."
+                },
+                {
+                        "name": "Earnifi",
+                        "url": "https://earnifi.com/",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Revoke.cash",
+                        "url": "https://revoke.cash/",
+                        "logo": null,
+                        "description": "Take back control of your wallet and stay safe by revoking token approvals and permissions you granted on Ethereum and over 100 other networks."
+                },
+                {
+                        "name": "Minipay",
+                        "url": "https://www.minipay.to/",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "SuperFluid",
+                        "url": "https://superfluid.org/",
+                        "logo": "https://i.imgur.com/kGnnASt.png",
+                        "description": "Earn every second. Superfluid is the money streaming protocol, powering apps for earning, investing, and trading by the second onchain."
+                },
+                {
+                        "name": "Limitless",
+                        "url": "https://limitless.exchange/advanced",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Splits.org",
+                        "url": "https://splits.org",
+                        "logo": "https://i.imgur.com/YNFXeUv.png",
+                        "description": "Splits.org is a decentralized platform for easy, automated on-chain payment splitting and revenue sharing across multiple blockchains."
+                },
+                {
+                        "name": "JuiceboxETH",
+                        "url": "https://juicebox.money",
+                        "logo": "https://i.imgur.com/Iqlc83m.png",
+                        "description": "Juicebox is a programmable treasury and community funding protocol on Ethereum that lets users launch projects with configurable funding cycles, allocate funds transparently, and issue tokens or NFTs in return\u2014commonly used for DAOs, creative initiatives, and experimental public goods."
+                },
+                {
+                        "name": "Hyperdrive.box",
+                        "url": "https://hyperdrive.box",
+                        "logo": null,
+                        "description": "Hyperdrive is a DeFi protocol that enables users to trade fixed and variable yield positions with customizable terms, offering enhanced liquidity and capital efficiency.\n"
+                },
+                {
+                        "name": "zkp2p",
+                        "url": "https://zkp2p.xyz",
+                        "logo": "https://i.imgur.com/HalUEnr.png",
+                        "description": "ZKP2P is a trust-minimized, peer-to-peer fiat-to-crypto on-ramp/off-ramp protocol using zero-knowledge proofs (ZKPs) to verify off-chain payments (e.g., Venmo, Revolut) without exposing sensitive data\u2014enabling secure fiat conversion to crypto."
+                },
+                {
+                        "name": "Teller",
+                        "url": "https://teller.org",
+                        "logo": "https://i.imgur.com/AoqkHhy.png",
+                        "description": "Teller is a decentralized, peer-to-peer lending protocol on Ethereum and Polygon that offers time-based, fixed-term loans with no margin liquidations\u2014borrowers pay fixed interest and return the full collateral at maturity."
+                },
+                {
+                        "name": "EigenCloud",
+                        "url": "https://eigencloud.xyz",
+                        "logo": "https://i.imgur.com/FvUtF9r.png",
+                        "description": "EigenLayer (EigenCloud) is a restaking protocol on Ethereum enabling ETH and LST (Liquid Staking Token) holders to reuse their staked assets to secure additional protocols (called AVSs) and earn extra yield."
+                },
+                {
+                        "name": "Shopify",
+                        "url": null,
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Puffer",
+                        "url": "https://www.puffer.fi",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Gearbox",
+                        "url": "https://gearbox.fi/",
+                        "logo": "https://paperform.co/file/s3.amazonaws.com/pf-user-files-01/u-59215/uploads/2025-08-20/ea23zuo/sign_circle_on_white.png?expires=1756303767&signature=a76040a5f41be4778bdc47f9c908b57bc646305846d2a049e54c725400655dbd",
+                        "description": "Gearbox is a decentralized credit protocol that connects lenders, who earn yield by providing liquidity, with borrowers, who can access leverage through collateralized credit accounts to deploy across DeFi."
+                },
+                {
+                        "name": "Nerite",
+                        "url": "Nerite.org",
+                        "logo": "https://paperform.co/file/s3.amazonaws.com/pf-user-files-01/u-59215/uploads/2025-08-22/dt03yba/nerite%20green%20black%20bk.png?expires=1756483551&signature=8f17f8658ec8673d09787890ac17b478083227763805bd90f987065183d0004a",
+                        "description": "Nerite is a decentralized stablecoin app where users can borrow against ETH or other assets to mint USND. USND is a streamable stablecoin, it can be sent linearly over time, making it perfect for subscriptions or salaries, or used to earn sustainable yield."
+                },
+                {
+                        "name": "Ajna",
+                        "url": "https://ajnafi.com/",
+                        "logo": "https://paperform.co/file/s3.amazonaws.com/pf-user-files-01/u-59215/uploads/2025-08-22/y5439yt/ajna_512.png?expires=1756483836&signature=e25175cafa1695e60c67b2edf4db8811ad0ca92ee08431f49df5043d15854450",
+                        "description": "Ajna Finance is a lending protocol for any ERC-20 and ERC-721 with orderbook pricing instead of using oracle. "
+                },
+                {
+                        "name": "Peapods Finance",
+                        "url": "https://peapods.finance",
+                        "logo": "https://paperform.co/file/s3.amazonaws.com/pf-user-files-01/u-59215/uploads/2025-08-23/2a234nl/1000024545.png?expires=1756579901&signature=39f706bf9a9ee7f0a48e673cc33d70403ecb067bdb98060cb1868793b783d8cd",
+                        "description": "Peapods Finance is a permissionless, modular decentralized finance (DeFi) protocol that allows any ERC-20 asset to become the foundation of a self-sustaining financial system. The protocol enables the creation of Vaults called \u201cPods\u201d which provide depositors with a synthetic ERC-20 wrapped version of the deposited asset (pTKN)."
+                },
+                {
+                        "name": "Alchemix",
+                        "url": "https://alchemix.fi/",
+                        "logo": "https://i.imgur.com/Hwgx9GR.png",
+                        "description": "Alchemix loans automatically pay themselves off with the yield generated from your deposits of ETH or stablecoins. Unlock the potential of your assets with secure and stress-free borrowing"
+                },
+                {
+                        "name": "Wildcat",
+                        "url": "https://app.wildcat.finance/",
+                        "logo": "https://i.imgur.com/0WZhOay.jpeg",
+                        "description": "Wildcat Finance is a DeFi protocol that enables undercollateralized lending, giving institutions access to flexible credit markets without requiring oversized collateral deposits. Borrowers can create customized lending markets with transparent terms, while lenders earn yield by providing liquidity counterparties they pick themselves."
+                },
+                {
+                        "name": "Contango",
+                        "url": "https://app.contango.xyz/",
+                        "logo": "https://i.imgur.com/OLPYww5.png",
+                        "description": "Contango lets you loop anything on-chain. You can create leverage (re)staking positions, arb rates differentials, farm points, or simply go long or short like a perp at low funding."
+                },
+                {
+                        "name": "The Gauntlet App",
+                        "url": "https://app.gauntlet.xyz/",
+                        "logo": "https://i.imgur.com/gUE8bIl.png",
+                        "description": "Access the risk-adjusted yields in DeFi, direct from the quants at Gauntlet. Earn on BTC, ETH, stablecoins, and more across multiple chains and protocols. "
+                },
+                {
+                        "name": "Sablier",
+                        "url": "https://sablier.finance/",
+                        "logo": "https://i.imgur.com/w5i4Q5k.png",
+                        "description": "Sablier is a protocol that facilitates the automated distribution of tokens over time. This \"streaming\" functionality removes the need for manual transactions, saving time and resources."
+                },
+                {
+                        "name": "R3al Blocks",
+                        "url": "https://r3al.io/en",
+                        "logo": "https://i.imgur.com/3VjkIyg.jpeg",
+                        "description": "We are a platform that offers access to investment in real-world assets."
+                },
+                {
+                        "name": "Lemon",
+                        "url": "https://lemon.me/",
+                        "logo": "https://i.imgur.com/msDGRZU.png",
+                        "description": "Exchange pesos for Bitcoin, USDT, Ethereum, and other cryptocurrencies instantly. Invest in DeFi and order your VISA Lemon Card."
+                },
+                {
+                        "name": "DeFi Saver",
+                        "url": "https://defisaver.com/",
+                        "logo": "https://i.imgur.com/KwLrIsX.jpeg",
+                        "description": "DeFi Saver is a non-custodial DeFi management tool offering advanced features and functionalities for managing your positions and crypto assets in various DeFi protocols"
+                },
+                {
+                        "name": "Ripio",
+                        "url": "https://www.ripio.com/en",
+                        "logo": "https://i.imgur.com/TaGDy5i.jpeg",
+                        "description": "Ripio is a Latin American cryptocurrency and blockchain company that provides a suite of financial products built around crypto \u2014 including wallets, exchanges, and DeFi tools."
+                },
+                {
+                        "name": "Belo",
+                        "url": "https://belo.app/ar/",
+                        "logo": "https://i.imgur.com/ukFEnXy.jpeg",
+                        "description": "A crypto-fiat platform with wallet, exchange, and yield tools.\n"
+                },
+                {
+                        "name": "Offramp",
+                        "url": "https://www.offramp.xyz/",
+                        "logo": "https://i.imgur.com/4ypvqWb.jpeg",
+                        "description": "Offramp.xyz is a self-custodial crypto wallet and Visa card platform that lets users convert, spend, and withdraw stablecoins or other digital assets across multiple blockchains in everyday transactions."
+                },
+                {
+                        "name": "Daimo Pay",
+                        "url": "https://pay.daimo.com/",
+                        "logo": "https://i.imgur.com/VM7mZ57.jpeg",
+                        "description": "Daimo Pay routes funds from any currency, chain, or app to the chain and stablecoin you choose."
+                },
+                {
+                        "name": "KyberSwap",
+                        "url": "kyberswap.com",
+                        "logo": "https://i.imgur.com/Bzmt2s7.jpeg",
+                        "description": "Kyber Network is a multichain DEX Aggregator and liquidity hub that connects liquidity from different sources to enable trades at the best rates. Native to Ethereum since 2017, KyberSwap now operates on many EVM chains and consistently the best aggregator in terms of trading volume."
+                },
+                {
+                        "name": "Superform",
+                        "url": "https://superform.xyz",
+                        "logo": "https://i.imgur.com/e4raePQ.png",
+                        "description": "Superform is the first stablecoin neobank. Anyone can save, swap, send, and earn onchain while keeping full control of their assets. Trusted by more than 150,000 users, Superform aggregates over $70B of opportunities across 60+ platforms so you can earn on your assets, easily and instantly."
+                }
+        ],
+        "Social": [
+                {
+                        "name": "Zora",
+                        "url": "https://zora.co/",
+                        "logo": "https://i.imgur.com/3ti964X.png",
+                        "description": "Zora is an onchain social network revealing new opportunities to create, connect, and earn from your life online."
+                },
+                {
+                        "name": "Rodeo",
+                        "url": "https://rodeo.club/",
+                        "logo": "https://i.imgur.com/R3AaFkG.png",
+                        "description": "Rodeo is a creative social network where artists, makers, and creators come together to share and celebrate their work. It combines the familiar features of social platforms with unique ways to support and earn from creativity."
+                },
+                {
+                        "name": "Towns",
+                        "url": "https://www.towns.com/",
+                        "logo": "https://i.imgur.com/1XjFcVW.png",
+                        "description": "Towns Protocol is an open source protocol for building decentralized real-time messaging apps. It consists of an EVM-compatible L2 chain, decentralized off-chain stream nodes, and smart contracts that are deployed on Base."
+                },
+                {
+                        "name": "Farcaster",
+                        "url": "https://farcaster.xyz/",
+                        "logo": "https://i.imgur.com/Xv6wvV9.png",
+                        "description": "Farcaster is a sufficiently decentralized social network built on Ethereum. It is a public social network similar to X and Reddit. Users can create profiles, post \"casts\" and follow others. They own their accounts and relationships with other users and are free to move between different apps."
+                },
+                {
+                        "name": "Orb",
+                        "url": "https://orb.club/",
+                        "logo": "https://i.imgur.com/Rx9ooN8.png",
+                        "description": "Orb.club is a consumer social mobile app built on Lens Protocol, known for its viral sticker drops, collectible posts, native tipping, and creator-first features."
+                },
+                {
+                        "name": "Shibuya Films",
+                        "url": "https://www.shibuya.film/",
+                        "logo": "https://i.imgur.com/ERgwg6l.png",
+                        "description": "Shibuya is a crowdfunding platform for bold, independent filmmakers, that gives creators the tools to raise capital, build community, and bring original stories to life\u2014one episode at a time."
+                },
+                {
+                        "name": "Hey.xyz",
+                        "url": "https://hey.xyz/",
+                        "logo": "https://i.imgur.com/gOpRfUD.png",
+                        "description": "Hey is a decentralized and permissionless social media app built with Lens Protocol."
+                },
+                {
+                        "name": "Paragraph",
+                        "url": "https://paragraph.com",
+                        "logo": "https://i.imgur.com/qn3J0qz.png",
+                        "description": "Paragraph is a Web3 publishing platform that lets writers create token-gated newsletters and mint content as NFTs on Ethereum and Base."
+                },
+                {
+                        "name": "Ethereum Follow Protocol",
+                        "url": "https://efp.app",
+                        "logo": "https://i.imgur.com/mk6kT65.png",
+                        "description": "EFP is an on\u2011chain social graph protocol, enabling Ethereum users to \"follow\" or \"tag\" other addresses via NFT-powered lists. It complements ENS and Sign\u2011In with Ethereum (SIWE)\u2014forming part of the emerging Ethereum identity stack "
+                },
+                {
+                        "name": "Kiwi News",
+                        "url": "https://news.kiwistand.com",
+                        "logo": "https://i.imgur.com/fKeLVJM.png",
+                        "description": "Kiwi News is a decentralized, open-source Hacker News\u2014built on a peer-to-peer protocol so anyone can copy/host the data and run their own feed. Ranking and rewards are community-driven via simple, attack-aware reputation/karma, with GPL-3 code and optional crypto/Stripe integrations for monetization."
+                },
+                {
+                        "name": "JokeRace",
+                        "url": "https://jokerace.io/",
+                        "logo": "https://i.imgur.com/QRX3hJ3.png",
+                        "description": "JokeRace is a decentralized governance protocol that enables communities to create, vote on, and reward proposals. Participants cast votes with conviction and can earn rewards for their engagement, aligning incentives around community-driven decision-making."
+                },
+                {
+                        "name": "Interface",
+                        "url": "https://app.interface.social",
+                        "logo": "https://i.imgur.com/q7w6Vgx.png",
+                        "description": "Interface is a trading-focused social network on Ethereum. Share your takes, discover new markets, follow friends, and copy trade their moves with live notifications."
+                },
+                {
+                        "name": "poidh",
+                        "url": "https://poidh.xyz",
+                        "logo": "https://i.imgur.com/wa42XYM.png",
+                        "description": "Poidh is a fully onchain app that lets anyone create, fund, and claim bounties for real-world actions. It makes it simple and fun to incentivize anything, from viral challenges to community-driven initiatives, using crypto."
+                },
+                {
+                        "name": "Ethereum Follow Protocol (EFP)",
+                        "url": "https://efp.app/",
+                        "logo": "https://i.imgur.com/toGgNkt.png",
+                        "description": "Ethereum Follow Protocol (EFP) is an onchain social graph protocol for Ethereum accounts that complements ENS."
+                },
+                {
+                        "name": "DRIPS",
+                        "url": "https://www.drips.network/",
+                        "logo": "https://i.imgur.com/Zam58pD.jpeg",
+                        "description": "Drips is an app built on Ethereum that enables flexibly supporting open-source projects, with built-in dependency splitting."
+                }
+        ],
+        "Privacy": [
+                {
+                        "name": "Fluidkey",
+                        "url": "https://fluidkey.com/",
+                        "logo": "https://i.imgur.com/lkEMfCo.png",
+                        "description": "Fluidkey allows users to seamlessly manage, receive, and send onchain assets while protecting their privacy."
+                },
+                {
+                        "name": "Rarimo",
+                        "url": "https://rarimo.com/",
+                        "logo": "https://i.imgur.com/53RT7xX.png",
+                        "description": "Unlocking a new generation of social apps, where users stay private without losing historical actions, networks, and identities"
+                },
+                {
+                        "name": "Railgun",
+                        "url": "https://railgun.org/",
+                        "logo": "https://i.imgur.com/iCZiC1e.png",
+                        "description": "RAILGUN is a privacy system built directly onchain. It uses zero-knowledge cryptography to enable private use of smart contracts and DeFi, all without leaving the security of the user\u2019s preferred chain. "
+                },
+                {
+                        "name": "Anon Aadhaar",
+                        "url": "https://anon-aadhaar.pse.dev/",
+                        "logo": "https://i.imgur.com/7CgL6Qy.png",
+                        "description": "Anon Aadhaar is a zero-knowledge protocol designed to enable Aadhaar citizens to prove their possession of an Aadhaar document issued and signed by the government. "
+                },
+                {
+                        "name": "Privacy Pools",
+                        "url": "https://privacypools.com/",
+                        "logo": "https://i.imgur.com/eTwgSVR.png",
+                        "description": "Privacy Pools by 0xbow is a compliant way to anonymously transact on Ethereum. 0xbow blocks illicit actors to ensure pool integrity."
+                },
+                {
+                        "name": "Tornado Cash",
+                        "url": "http://tornadocash.eth.limo/",
+                        "logo": "https://i.imgur.com/9S2K8kO.png",
+                        "description": "Secure, Decentralized, Private protocol"
+                },
+                {
+                        "name": "ZK Pass",
+                        "url": "https://zkpass.org/",
+                        "logo": "https://i.imgur.com/w3SO8am.jpeg",
+                        "description": "Verify your real-world private data without revealing your private details."
+                },
+                {
+                        "name": "PublicNode",
+                        "url": "https://publicnode.com/",
+                        "logo": null,
+                        "description": "Fastest, free-est, and privacy first RPC endpoints for 102 blockchains. Connect reliably to Web3 with ease!"
+                },
+                {
+                        "name": "3xpl",
+                        "url": "https://3xpl.com/",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "0xbow",
+                        "url": "https://0xbow.io/",
+                        "logo": "https://i.imgur.com/PAb3BvU.png",
+                        "description": "0xbow is a privacy protocol for Ethereum that enables compliant, zero-knowledge-based private transactions through customizable Privacy Pools."
+                }
+        ],
+        "Collectibles": [
+                {
+                        "name": "OpenSea",
+                        "url": "https://opensea.io/",
+                        "logo": "https://i.imgur.com/J4vZUTN.png",
+                        "description": "OpenSea is an online marketplace for non-fungible tokens (NFTs), enabling users to buy, sell, and create NFTs. It functions as a decentralized platform where users can trade various digital assets, including art, music, gaming items, and more, across multiple blockchains. "
+                },
+                {
+                        "name": "Blur",
+                        "url": "https://blur.io/",
+                        "logo": "https://i.imgur.com/qaTlXOZ.png",
+                        "description": "Blur is a professional NFT marketplace offering zero-fee NFT trading and features for intermediate and advanced traders."
+                },
+                {
+                        "name": "Highlight",
+                        "url": "https://highlight.xyz/",
+                        "logo": "https://i.imgur.com/gvbFr2a.png",
+                        "description": "Highlight is a platform for creating and collecting digital art and culture."
+                },
+                {
+                        "name": "Manifold",
+                        "url": "https://manifold.xyz/",
+                        "logo": "https://i.imgur.com/2WZrZfG.png",
+                        "description": "Manifold Studio is a series of tools that allow you to build your own web3 creative platform. Studio allows for the creation and distribution of digital assets known as non-fungible tokens(NFTs)."
+                },
+                {
+                        "name": "Rarible",
+                        "url": "https://rarible.com/",
+                        "logo": "https://i.imgur.com/0dhVyXp.png",
+                        "description": "Rarible is a multi-chain platform where you can buy, sell, and create non-fungible tokens (NFTs)."
+                },
+                {
+                        "name": "Pudgy Penguins",
+                        "url": "https://www.pudgypenguins.com/",
+                        "logo": "https://i.imgur.com/jdf0uFw.png",
+                        "description": "Pudgy Penguins is a global IP focused on proliferating the penguin, memetic culture, and good vibes."
+                },
+                {
+                        "name": "Bored Ape Yacht Club",
+                        "url": "https://boredapeyachtclub.com/",
+                        "logo": "https://i.imgur.com/EmOxvhI.png",
+                        "description": "The Bored Ape Yacht Club is a collection of 10000 unique Bored Ape NFTs\u2014 unique digital collectibles living on the Ethereum blockchain."
+                },
+                {
+                        "name": "Art Blocks",
+                        "url": "https://www.artblocks.io/",
+                        "logo": "https://i.imgur.com/6POOwm3.png",
+                        "description": "Art Blocks is a digital platform where generative artists publish unique artworks using creative code. With historical roots in conceptual art, generative art involves the creation of an algorithm using computer code, with randomness introduced into the artist\u2019s algorithm to produce unique works."
+                },
+                {
+                        "name": "Cool Cats",
+                        "url": "https://www.coolcatsnft.com/",
+                        "logo": "https://i.imgur.com/Z20S33T.png",
+                        "description": "Cool Cats is a collection of 9,999 randomly generated NFT avatars, each featuring a unique Blue Cat with various traits like clothing, hairstyles, and accessories."
+                },
+                {
+                        "name": "Doodles",
+                        "url": "https://www.doodles.app/",
+                        "logo": "https://i.imgur.com/xgn185K.png",
+                        "description": "Doodles is a next-generation entertainment company focused on immersive storytelling through the creation and distribution of live and digital experiences, original content, and lifestyle products."
+                },
+                {
+                        "name": "Basepaint",
+                        "url": "https://basepaint.xyz/",
+                        "logo": "https://i.imgur.com/svBfl50.png",
+                        "description": "BasePaint.xyz is a collaborative, onchain pixel art application where artists create daily, shared canvases that are then minted as NFTs."
+                },
+                {
+                        "name": "Foundation",
+                        "url": "https://foundation.app/",
+                        "logo": "https://i.imgur.com/s5zw9NG.png",
+                        "description": "Foundation.app is an NFT marketplace that allows artists to tokenize their creations as NFTs and provides a platform for collectors to buy, sell, and trade these digital artworks."
+                },
+                {
+                        "name": "Sandbox",
+                        "url": "https://www.sandbox.game/",
+                        "logo": "https://i.imgur.com/u2UXDq4.png",
+                        "description": "The Sandbox is a community-driven creative platform that empowers artists, storytellers, and game makers to create, publish, own, and monetise a myriad of unique content on a decentralised platform on the blockchain."
+                },
+                {
+                        "name": "SuperRare",
+                        "url": "https://superrare.com/",
+                        "logo": "https://i.imgur.com/HRl4kUv.png",
+                        "description": "SuperRare is a platform to issue, collect, and trade rare digital art backed by non-fungible tokens (NFTs) on the Ethereum blockchain. Every piece of art on SuperRare is a single edition - this means each artwork is unique without duplicates."
+                },
+                {
+                        "name": "Decentraland",
+                        "url": "https://decentraland.org/",
+                        "logo": "https://i.imgur.com/1cghrNy.png",
+                        "description": "Decentraland was the world\u2019s first fully decentralized, social virtual world, empowering users to own, create, and control their digital assets and experiences. Launched in 2020, Decentraland features an open, traversable landscape filled with user-generated content that evolves and changes in real-time."
+                },
+                {
+                        "name": "Magic Eden",
+                        "url": "https://magiceden.io/",
+                        "logo": "https://i.imgur.com/oSGwPR4.png",
+                        "description": "Magic Eden is a non-fungible token marketplace that allows users to buy, sell, mint, and manage NFTs. It's a popular platform for both creators launching new NFT projects and for trading on the secondary market. "
+                },
+                {
+                        "name": "Pods",
+                        "url": "https://pods.media/",
+                        "logo": null,
+                        "description": "Pods is a platform for onchain podcasts that allows podcast hosts to upload their episodes as onchain NFTs and provides a marketplace for listeners to collect those episodes."
+                },
+                {
+                        "name": "Azuki",
+                        "url": "https://www.azuki.com/",
+                        "logo": "https://i.imgur.com/fe1Tipo.png",
+                        "description": "Azuki is a brand born at the intersection of art, technology, and internet culture. What started as a web3 project has evolved into a global community of artists and builders shaping original characters, stories, and experiences together. From digital collectibles to fashion and real-world events, Azuki is building a universe for digital natives drawn to what's next."
+                },
+                {
+                        "name": "POAP",
+                        "url": "https://poap.xyz/",
+                        "logo": "https://i.imgur.com/U3ZyEUt.png",
+                        "description": "POAP are the bookmarks for your life. Mint the most important memories of your life as digital collectibles (NFTs) forever on the blockchain."
+                },
+                {
+                        "name": "Courtyard",
+                        "url": "https://courtyard.io",
+                        "logo": "https://i.imgur.com/a50EywS.png",
+                        "description": "Courtyard is a platform for minting and trading NFTs backed by real-world collectibles like trading cards, with assets stored in insured vaults and redeemable on-chain."
+                },
+                {
+                        "name": "Wasabi",
+                        "url": "https://wasabi.xyz/",
+                        "logo": null,
+                        "description": "Wasabi is a spot leverage DEX that allows you to long, short, swap, and earn on your favorite tokens, including long-tail assets such as memecoins."
+                },
+                {
+                        "name": "BendDAO",
+                        "url": "https://benddao.xyz/",
+                        "logo": null,
+                        "description": "BendDAO V2 Protocol brings you composable lending and leverage. It allows anyone to borrow in an overcollateralized fashion, leverage savings on MakerDAO, leverage stake on Lido, leverage restake with EigenLayer derivatives, bringing together lending and leverage in the same protocol."
+                }
+        ],
+        "Gaming": [
+                {
+                        "name": "EVE Frontier",
+                        "url": "https://evefrontier.com/en",
+                        "logo": "https://i.imgur.com/8VI7Xmb.png",
+                        "description": "EVE Frontier is a sandbox shaped by player-driven activity. From player-made factions, to bases, private economies and the stargate network, you create the ultimate living world."
+                },
+                {
+                        "name": "Pixels",
+                        "url": "https://www.pixels.xyz/",
+                        "logo": "https://i.imgur.com/R2GbNiE.png",
+                        "description": "Pixels is building a platform where users can build games that natively integrate digital collectibles. Create fun, memorable experiences where your users truly own their progress. Build around existing IP."
+                },
+                {
+                        "name": "Eureka",
+                        "url": "https://www.eureka.game/",
+                        "logo": "https://i.imgur.com/BfRIjQZ.png",
+                        "description": "Explore a new found continent in Eureka, a game set during the discovery of a new continent in 1850. Players will navigate a realistic, evolving world, building enterprises and engaging in local commerce to create bustling towns. With a focus on strategy and resource management, Eureka offers a dynamic gaming experience where every decision impacts the growth and prosperity of your community."
+                },
+                {
+                        "name": "Scout Game",
+                        "url": "https://scoutgame.xyz/",
+                        "logo": "https://i.imgur.com/Gx854xR.png",
+                        "description": "The Scout Game is designed to reward individuals for identifying and supporting emerging developer talent within onchain ecosystems. As a Scout, your goal is to recognize promising developers early in their journey and help them gain visibility. In return, you earn rewards based on their success."
+                },
+                {
+                        "name": "Eternum",
+                        "url": "https://eternum.realms.world/",
+                        "logo": "https://i.imgur.com/8Yv6e9S.png",
+                        "description": "In Eternum, your task begins by settling a Realm or Village\u2014a seat of power from which your destiny unfolds. Select your strategic position upon the vast, unexplored, procedurally generated world map and secure vital materials to fuel your expansion. Grow your influence through shrewd economic choices, military strategy, and diplomatic maneuvering, nurturing your humble settlement into a mighty empire."
+                },
+                {
+                        "name": "Gigaverse",
+                        "url": "https://gigaverse.io/",
+                        "logo": "https://i.imgur.com/DDNADwq.png",
+                        "description": "Gigaverse is a game where exploration meets strategy, set in an interconnected world of infinite possibilities. Players journey through diverse realms, uncover hidden challenges, and face unique risks that offer meaningful rewards. Designed to be accessible and constantly evolving, Gigaverse caters to both RPG enthusiasts and newcomers."
+                },
+                {
+                        "name": "Remix",
+                        "url": "https://remix.gg/",
+                        "logo": "https://i.imgur.com/KBHOee9.png",
+                        "description": "Remix is a platform combining AI and mobile gaming, designed to offer on-chain, AI-powered games."
+                },
+                {
+                        "name": "Primodium",
+                        "url": "https://developer.primodium.com/",
+                        "logo": null,
+                        "description": "Primodium is a space-based, empire building MMO game. In Primodium, you mine resources, build military bases, and fight others to gain control over the asteroid belt. Unlike most games on the market, Primodium is a fully onchain game."
+                },
+                {
+                        "name": "Sorare",
+                        "url": "https://sorare.com/en-gb/",
+                        "logo": null,
+                        "description": "Sorare is a fantasy sports game for football, baseball, and basketball. Players collect, trade, and manage digital player cards that are used to form virtual teams and compete in fantasy leagues, with real-world player performance impacting the fantasy game's outcome."
+                },
+                {
+                        "name": "Axie",
+                        "url": "https://axieinfinity.com/",
+                        "logo": null,
+                        "description": "Axie Infinity is a virtual world filled with cute, formidable creatures known as Axies. Axies can be battled, collected, and even used to mine tokens through gameplay."
+                },
+                {
+                        "name": "Illuvium",
+                        "url": "https://illuvium.io/",
+                        "logo": "https://i.imgur.com/LBo34WC.png",
+                        "description": "Illuvium is a collectible RPG game and auto-battler rolled into one. There is an open-world RPG experience in the overworld, where you mine, harvest, capture, and fight Illuvials. Once you have assembled your team you can join the autobattler to build your teams to beat your opponents in battle."
+                },
+                {
+                        "name": "Parallel",
+                        "url": "https://parallel.life",
+                        "logo": "https://i.imgur.com/OcpP6tZ.png",
+                        "description": "Parallel is a free-to-play, turn-based strategy game where players build 40-card decks using cards from five factions or universal cards to battle each other."
+                },
+                {
+                        "name": "Aavagochi ",
+                        "url": "https://www.aavegotchi.com/",
+                        "logo": null,
+                        "description": "Aavegotchi is a collectible game centered around unique, customizable avatars called Aavegotchis, which are essentially DeFi-enabled digital pets. These avatars are dynamic assets that can be upgraded through gameplay, equipped with wearables, and even generate yield through staking."
+                },
+                {
+                        "name": "Gods Unchained",
+                        "url": "https://godsunchained.com/",
+                        "logo": null,
+                        "description": "Gods Unchained is a free-to-play tactical card game that gives players true ownership of their in-game items and focuses on competitive play, which means players must strategically outsmart their opponents by building decks that are able to combat a wide variety of tactics."
+                },
+                {
+                        "name": "Cambria",
+                        "url": "https://cambria.gg/",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Onchain Heros",
+                        "url": "https://www.onchainheroes.xyz/",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Kamigotchi",
+                        "url": null,
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Dark Forest MUD",
+                        "url": "https://github.com/dfarchon/darkforest-mud",
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Moving Castles",
+                        "url": null,
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "DxReseach",
+                        "url": null,
+                        "logo": null,
+                        "description": null
+                },
+                {
+                        "name": "Starkarcade",
+                        "url": "https://www.starkarcade.com/",
+                        "logo": null,
+                        "description": null
+                }
+        ],
+        "DAO": [
+                {
+                        "name": "Snapshot",
+                        "url": "https://snapshot.box/",
+                        "logo": "https://i.imgur.com/B2nGDiy.png",
+                        "description": "Snapshot is a voting platform that allows DAOs, DeFi protocols, or NFT communities to vote easily and without gas fees.The tool allows high customization of the voting process to cater to the diverse needs of the users and organizations."
+                },
+                {
+                        "name": "Tally",
+                        "url": "https://www.tally.xyz/",
+                        "logo": "https://i.imgur.com/uFbNLmO.png",
+                        "description": "Tally is a platform focused on onchain governance for decentralized autonomous organizations and blockchain protocols by providing tools and infrastructure for launching, managing, and participating in DAOs."
+                },
+                {
+                        "name": "Hats Protocol",
+                        "url": "https://www.hatsprotocol.xyz/",
+                        "logo": "https://i.imgur.com/imDZeNh.png",
+                        "description": "Hats turns organizations into a digital object, ready to be programmed. All of the properties of your organization and its individual roles and permissions can now be automated, just like any other software system."
+                },
+                {
+                        "name": "Aragon",
+                        "url": "https://aragon.org/",
+                        "logo": "https://i.imgur.com/K7oLCS6.png",
+                        "description": "Aragon builds full-stack DAO technology that enables organizations to easily and securely govern their protocols and assets onchain."
+                },
+                {
+                        "name": "DAOhaus",
+                        "url": "https://daohaus.club/",
+                        "logo": "https://i.imgur.com/E6DLY0N.png",
+                        "description": "DAOhaus allows communities to create a DAO and manage, grow, and distribute a shared treasury."
+                },
+                {
+                        "name": "Event Horizon",
+                        "url": "https://eventhorizon.vote/",
+                        "logo": "https://i.imgur.com/uAwjyR8.png",
+                        "description": "Event Horizon is a public good that helps DAOs improve their voter participation, token participation, and generally improve the governance process of DAOs with the help of agentic governance and Incentivized Delegation Vaults. "
+                },
+                {
+                        "name": "Splits",
+                        "url": "https://app.splits.org/",
+                        "logo": "https://i.imgur.com/CAiSLc5.png",
+                        "description": "Splits is a platform offering financial infrastructure for onchain teams, specializing in managing onchain payments using audited, open-source smart contracts."
+                },
+                {
+                        "name": "Safe",
+                        "url": "https://safe.global/",
+                        "logo": "https://i.imgur.com/kRMy55h.png",
+                        "description": "Own the Internet. Ethereum Smart Accounts to safeguard your digital assets and build the future of ownership."
+                },
+                {
+                        "name": "Coordinape",
+                        "url": "https://coordinape.com/",
+                        "logo": "https://i.imgur.com/Rkky5a1.png",
+                        "description": "Coordinape provides tools to discover, recognize and collaborate in onchain networks of trust."
+                },
+                {
+                        "name": "Endaoment",
+                        "url": "https://endaoment.org/",
+                        "logo": "https://i.imgur.com/iXSGSbp.png",
+                        "description": "Endaoment is a public charity that offers Donor-Advised Funds (DAFs) and facilitates donations to non-profits."
+                },
+                {
+                        "name": "ResearchHub",
+                        "url": "https://researchhub.com/",
+                        "logo": "https://i.imgur.com/bs1ElQd.png",
+                        "description": "ResearchHub is designed to accelerate the pace of scientific research by encouraging academics to interact in a fully open and collaborative manner. "
+                },
+                {
+                        "name": "Prime Intellect",
+                        "url": "https://www.primeintellect.ai/",
+                        "logo": "https://i.imgur.com/GlSYmTI.png",
+                        "description": "Prime Intellect democratizes AI development at scale by making it easy to find global compute resources and train state-of-the-art models through distributed training across clusters."
+                },
+                {
+                        "name": "DeSciWorld",
+                        "url": "https://desci.world/",
+                        "logo": "https://i.imgur.com/T7tS2MU.png",
+                        "description": "DeSciWorld supports all fields of science as an agnostic repository and champion of open source, permissionless tooling for the advancement of knowledge."
+                },
+                {
+                        "name": "Gitcoin",
+                        "url": "https://gitcoin.co/",
+                        "logo": "https://i.imgur.com/BMV9l33.png",
+                        "description": "Gitcoin empowers communities to build, fund and protect what matters to them through innovating funding tools and solutions."
+                },
+                {
+                        "name": "Hair DAO",
+                        "url": "https://www.hairdao.xyz/",
+                        "logo": "https://i.imgur.com/BwkIUWy.png",
+                        "description": "HairDAO is an open-source R&D network where patients and researchers collaborate to develop revolutionary new treatments for hair loss."
+                },
+                {
+                        "name": "Vita DAO",
+                        "url": "https://vitadao.com/",
+                        "logo": "https://i.imgur.com/59nMgOf.png",
+                        "description": "VitaDAO aims to radically extend healthy human lifespan by funding cutting-edge aging research and democratizing ownership of Intellectual Property"
+                },
+                {
+                        "name": "Nouns",
+                        "url": "https://nouns.wtf/",
+                        "logo": "https://i.imgur.com/ORYokGw.png",
+                        "description": "Nouns is a community-owned brand that makes a positive impact by funding ideas and fostering collaboration."
+                },
+                {
+                        "name": "Giveth",
+                        "url": "https://giveth.io/",
+                        "logo": null,
+                        "description": "Get rewarded for crypto donations to for-good projects with zero added fees and accepting crypto donations. Donate crypto directly to thousands of nonprofits & charities!"
+                },
+                {
+                        "name": "Butter Markets",
+                        "url": "https://app.butter.markets/",
+                        "logo": null,
+                        "description": "Butter Markets offers Conditional Funding Markets: on-chain funding mechanisms that use prediction-market-like auctions to distribute capital\u2014ensuring funds go to the highest-ROI proposals based on collective forecasting."
+                },
+                {
+                        "name": "Agora",
+                        "url": "https://agora.xyz",
+                        "logo": "https://i.imgur.com/a1KpeEc.png",
+                        "description": "Agora is an advanced on-chain governance platform that empowers protocols and communities (like Uniswap, Optimism, ENS) with scalable, secure, and user-friendly voting systems\u2014eliminating the need for custom code."
+                }
+        ],
+        "Productivity": [
+                {
+                        "name": "ENS",
+                        "url": "https://ens.domains/",
+                        "logo": "https://i.imgur.com/Ocl9okb.png",
+                        "description": "The Ethereum Name Service or ENS is the decentralized naming protocol that is built on the Ethereum blockchain. It adheres to open-source standards and is based on a set of decentralized smart contracts that translate blockchain addresses into human-readable names."
+                },
+                {
+                        "name": "Huddle01",
+                        "url": "https://huddle01.com/",
+                        "logo": "https://i.imgur.com/GcVR2ag.png",
+                        "description": "Huddle01 is a decentralized real-time communication platform that offers an alternative to centralized video conferencing systems and aims to reduce latency, improve performance, and cut infrastructure costs, making communication more efficient and scalable."
+                },
+                {
+                        "name": "Livepeer",
+                        "url": "https://www.livepeer.org/",
+                        "logo": "https://i.imgur.com/rwonhAA.png",
+                        "description": "Livepeer is a decentralized network for limitless video computing, enabling AI processing and transcoding jobs to power the future of video."
+                },
+                {
+                        "name": "ZK Passport",
+                        "url": "https://zkpassport.id/",
+                        "logo": "https://i.imgur.com/sBVlmsl.png",
+                        "description": "ZKPassport SDK enables privacy-preserving identity verification using passports and ID cards. It allows developers to request and verify specific identity attributes without exposing unnecessary personal information."
+                },
+                {
+                        "name": "QuarkID",
+                        "url": "https://quarkid.org/",
+                        "logo": "https://i.imgur.com/K3T8EYJ.png",
+                        "description": "QuarkID is the digital trust framework developed by the Government of the City of Buenos Aires that creates a new digital identity system."
+                },
+                {
+                        "name": "Arkreen",
+                        "url": "https://arkreen.com/",
+                        "logo": "https://i.imgur.com/YJKWbNq.png",
+                        "description": "Arkreen is a DePIN-powered global energy network that digitizes and connects distributed renewable assets like residential solar PV systems. Its blockchain-based protocols enable value exchange, asset monetization, and decentralized coordination."
+                },
+                {
+                        "name": "Rotki",
+                        "url": "https://rotki.com/",
+                        "logo": "https://i.imgur.com/0AVcfDU.png",
+                        "description": "Rotki is an open source, self-hosted portfolio manager, accounting and analytics tool that protects your privacy."
+                },
+                {
+                        "name": "Zupass",
+                        "url": "https://zupass.org/",
+                        "logo": "https://i.imgur.com/FT9RVoI.png",
+                        "description": "Zupass is a new application powered by Programmable Cryptography. It's a stepping stone towards building the next internet."
+                },
+                {
+                        "name": "OpenCerts",
+                        "url": "https://opencerts.io/",
+                        "logo": "https://i.imgur.com/vErB6yN.png",
+                        "description": "OpenCerts, part of Singapore\u2019s Smart Nation initiative, enables issuance and validation of tamper-resistant academic certificates in a convenient and reliable manner."
+                },
+                {
+                        "name": "Self",
+                        "url": "https://self.xyz/",
+                        "logo": "https://i.imgur.com/wvW71IU.png",
+                        "description": "Self empowers everyday companies to identify real users and prevent attacks from fraudsters. Users maintain control of the data they share, and neither Self nor the requesting company can access user's sensitive information without consent."
+                },
+                {
+                        "name": "Fileverse - ddocs",
+                        "url": "https://docs.fileverse.io/document/create",
+                        "logo": "https://i.imgur.com/micDfkJ.png",
+                        "description": "ddocs.new is a privacy-first alternative to Google docs. dDocs is end-to-end encrypted, open-source, and onchain. By design, not by promise. You can use it both for real-time and async collaboration! Moisturised features include: Markdown and LaTeX support; Darkmode; local LLM plugin; Offline mode; Collaborate with your ENS vs email; Accountless version where all your docs are stored locally. What we stand for: Self-sovereignty, Privacy, Open standards."
+                },
+                {
+                        "name": "Fileverse - dsheets",
+                        "url": "https://sheets.fileverse.io/sheet/create",
+                        "logo": "https://i.imgur.com/micDfkJ.png",
+                        "description": "dSheets.new is your decentralized spreadsheets made for the global economy & open Internet. It's a no-code tool to read, manipulate, and write onchain data in real-time, using familiar spreadsheet logic & functions. Built on the same Fileverse middleware as ddocs.new: no downloads, no sign-ups, full end-to-end encryption, granular permissions (email/ENS/0x), built on open standards, and with ZK-authentication (vOPRF-ID) for your private online collaboration."
+                },
+                {
+                        "name": "Brave",
+                        "url": "https://brave.com/",
+                        "logo": null,
+                        "description": "Brave is a privacy-focused web browser built on the Chromium platform, known for its built-in ad and tracker blocking features. It aims to provide a faster, safer, and more private browsing experience compared to traditional browsers. "
+                },
+                {
+                        "name": "EAS",
+                        "url": "https://attest.org/",
+                        "logo": "https://i.imgur.com/d8kqvW4.png",
+                        "description": "Ethereum Attestation Service (EAS) is an infrastructure public good for making attestations onchain or offchain about anything."
+                },
+                {
+                        "name": "Storj",
+                        "url": "https://storj.io/",
+                        "logo": null,
+                        "description": "Storj is the leading provider of enterprise-grade, globally distributed cloud object storage. It is a drop-in replacement for any S3-compatible object storage that is just as durable but with 99.95% availability and better global performance from a single upload. "
+                },
+                {
+                        "name": "Opera",
+                        "url": "https://www.opera.com/",
+                        "logo": null,
+                        "description": "Opera is a free web browser, known for its unique features, including a built-in VPN, ad blocker, and AI-based browsing capabilities"
+                },
+                {
+                        "name": "Unlock",
+                        "url": "https://unlock-protocol.com/",
+                        "logo": "https://i.imgur.com/4p38CFx.png",
+                        "description": "Unlock Protocol is a protocol that enables creators to monetize their content with a few lines of code in a fully decentralized way. It focuses on memberships and subscription NFTs with features like time constraints, pricing updates, and recurring payments. It is trusted by thousands of developers and community members for building next-generation membership products"
+                },
+                {
+                        "name": "Human Passport",
+                        "url": "https://passport.human.tech/",
+                        "logo": "https://i.imgur.com/qvNkDAK.png",
+                        "description": "Human Passport is an identity verification application and Sybil resistance protocol. Developers can utilize the different Human Passport products and services to build a unique humanity solution for their app or project, enabling more trustworthy and fair participation in their community."
+                },
+                {
+                        "name": "Sequence",
+                        "url": "https://sequence.xyz",
+                        "logo": "https://i.imgur.com/POagFpG.png",
+                        "description": "Sequence is a developer platform offering smart contract wallets, SDKs, and infrastructure for building Web3 apps and games on Ethereum and EVM chains."
+                },
+                {
+                        "name": "Eternal AI",
+                        "url": "https://eternalai.org/",
+                        "logo": "https://i.imgur.com/AFYIGAo.png",
+                        "description": "Eternal AI is a blockchain-based platform for creating, deploying, and monetizing cryptographically secure AI agents as smart contracts."
+                },
+                {
+                        "name": "Virtuals",
+                        "url": "https://app.virtuals.io/",
+                        "logo": "https://i.imgur.com/fZ0nGYw.png",
+                        "description": "Virtuals Protocol is a society of productive AI agents, each designed to generate services or products and autonomously engage in onchain commerce. These agents are tokenized, allowing for capital formation, permissionless participation, and aligned incentives among creators, investors, and agents."
+                },
+                {
+                        "name": "Focus Tree",
+                        "url": "https://focustree.app/",
+                        "logo": "https://i.imgur.com/sjb5oar.png",
+                        "description": "Focus Tree is an web3 app that helps you manage your screentime better. Grow your garden with friends and collect items on Starknet blockchain."
+                },
+                {
+                        "name": "elizaOS",
+                        "url": "https://elizaos.ai/",
+                        "logo": "https://i.imgur.com/SR0FvBn.png",
+                        "description": "Build, orchestrate, and\ncollaborate with AI agents."
+                }
+        ],
+        "Bridge": [
+                {
+                        "name": "Particle Network",
+                        "url": "https://particle.network/",
+                        "logo": "https://i.imgur.com/IX6ESQ7.png",
+                        "description": "Pay with any asset. Transact across chains effortlessly. Never bridge again."
+                },
+                {
+                        "name": "Layerswap",
+                        "url": "https://layerswap.io/",
+                        "logo": "https://i.imgur.com/H8Mp3kO.png",
+                        "description": "Layerswap is the reliable solution for transferring crypto assets across networks in a matter of minutes. The app enables frictionless cross-chain transfers across 35+ blockchains as well as direct transfers between chains and 15+ exchanges."
+                },
+                {
+                        "name": "Hop",
+                        "url": "https://app.hop.exchange/",
+                        "logo": "https://i.imgur.com/xraNXM1.png",
+                        "description": "Hop is a scalable rollup-to-rollup general token bridge. It allows users to send tokens from one rollup or sidechain to another almost immediately without having to wait for the networks challenge period."
+                },
+                {
+                        "name": "Stargate",
+                        "url": "https://stargate.finance/bridge",
+                        "logo": "https://i.imgur.com/E9Jw36o.png",
+                        "description": "Stargate is a composable cross-chain liquidity transport protocol enabling seamless asset transfers between blockchains."
+                },
+                {
+                        "name": "Across",
+                        "url": "https://app.across.to/bridge",
+                        "logo": "https://i.imgur.com/70fOLRm.png",
+                        "description": "Across is a cross-chain bridge for L2s and rollups secured by UMA's optimistic oracle. It is optimized for capital efficiency with a single liquidity pool, a competitive relayer landscape, and a no-slippage fee model."
+                },
+                {
+                        "name": "Meson",
+                        "url": "https://meson.fi/",
+                        "logo": "https://i.imgur.com/lDCO7eA.png",
+                        "description": "Meson is the faster and safer way to execute low-cost, zero-slippage universal cross-chain swaps across all leading blockchains and layer-2 rollups."
+                },
+                {
+                        "name": "deBridge",
+                        "url": "https://app.debridge.finance/",
+                        "logo": "https://i.imgur.com/O1iVt88.png",
+                        "description": "DeBridge is DeFi's internet of liquidity, enabling real-time movement of assets and information across the DeFi landscape. Without the bottlenecks and risks of liquidity pools, deBridge can power all type of cross-chain interactions with deep liquidity, tight spreads, and guaranteed rates."
+                },
+                {
+                        "name": "Orbiter Finance",
+                        "url": "https://www.orbiter.finance/bridge/",
+                        "logo": "https://i.imgur.com/xkJIVGd.png",
+                        "description": "Orbiter Finance enables cross-rollup transactions of Ethereum/Bitcoin native assets in a trustless and seamless manner."
+                },
+                {
+                        "name": "Celer cBridge",
+                        "url": "https://cbridge.celer.network/",
+                        "logo": "https://i.imgur.com/TyZdpEU.png",
+                        "description": "Celer is a blockchain interoperability protocol enabling a one-click user experience accessing tokens, DeFi, GameFi, NFTs, governance, and more across multiple chains."
+                },
+                {
+                        "name": "Synapse",
+                        "url": "https://synapseprotocol.com/",
+                        "logo": "https://i.imgur.com/07lCxpa.png",
+                        "description": "Synapse Bridge is built on top of the cross-chain infrastructure enabling users to seamlessly transfer assets across all blockchains."
+                },
+                {
+                        "name": "Gas.zip",
+                        "url": "https://gas.zip",
+                        "logo": "https://i.imgur.com/BE9zVpY.png",
+                        "description": "Fastest one-stop gas refuel bridge for over 350+ chains. Bridge and explore all your favorite alt-chains and L2s, instantly."
+                },
+                {
+                        "name": "Staking Launchpad",
+                        "url": "https://launchpad.ethereum.org",
+                        "logo": "https://i.imgur.com/PO19A9T.png",
+                        "description": "Become a validator and help secure the future of Ethereum."
+                },
+                {
+                        "name": "Bungee",
+                        "url": "https://bungee.exchange/",
+                        "logo": "https://i.imgur.com/X2vpia7.png",
+                        "description": "Bungee provides seamless swaps between any blockchain. With over $20B in volume and trusted by major wallets and dApps, Bungee makes moving assets between networks efficient, secure, and accessible to everyone."
+                }
+        ]
+};
+        
+        // Process the data
+        {
+                const grid = document.getElementById('ecosystem-grid');
+                let totalApps = 0;
+
+                Object.keys(categoryConfig).forEach(category => {
+                    const apps = data[category] || [];
+                    totalApps += apps.length;
+
+                    const config = categoryConfig[category];
+
+                    const clusterDiv = document.createElement('div');
+                    clusterDiv.className = 'category-cluster';
+
+                    clusterDiv.innerHTML = `
+                        <div class="category-header">
+                            <div class="category-icon ${config.class}">${config.icon}</div>
+                            <div class="category-name">${category}</div>
+                            <div class="app-count">${apps.length}</div>
+                        </div>
+                        <div class="apps-grid">
+                            ${apps.map((app, index) => {
+                                const logoUrl = app.logo;
+                                const appUrl = app.url || '#';
+                                const appName = app.name || 'Unknown';
+                                const firstLetter = appName.charAt(0).toUpperCase();
+
+                                // Light Ethereum colors for variety
+                                const bgColors = [
+                                    'rgba(202, 179, 245, 0.12)',  // Light purple
+                                    'rgba(135, 169, 240, 0.12)',  // Light blue
+                                    'rgba(184, 251, 246, 0.12)',  // Light cyan
+                                    'rgba(238, 203, 192, 0.12)',  // Light peach
+                                    'rgba(255, 255, 255, 0.08)'   // Very light white
+                                ];
+                                const bgColor = bgColors[index % bgColors.length];
+
+                                // If no logo URL, use a styled div with first letter
+                                const logoElement = logoUrl
+                                    ? `<img src="${logoUrl}" alt="${appName}" class="app-logo" style="background: ${bgColor};" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy">
+                                       <div class="app-logo error" style="display:none;">${firstLetter}</div>`
+                                    : `<div class="app-logo error">${firstLetter}</div>`;
+
+                                return `
+                                    <a href="${appUrl}" class="app-item" target="_blank" rel="noopener noreferrer" title="${appName}${app.description ? '\n' + app.description : ''}">
+                                        ${logoElement}
+                                        <div class="app-name">${appName}</div>
+                                    </a>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+
+                    grid.appendChild(clusterDiv);
+                });
+
+                document.getElementById('total-apps').textContent = totalApps;
+        }
+    </script>
+</body>
+</html>
