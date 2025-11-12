@@ -7,8 +7,10 @@ An interactive visualization of the Ethereum DApp ecosystem, showcasing applicat
 View the visualizations directly in your browser:
 
 - [Full Ecosystem Map](https://htmlpreview.github.io/?https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/blob/main/ethereum_dapp_ecosystem.html) - Interactive map with descriptions
-- [Presentation Slide](https://htmlpreview.github.io/?https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/blob/main/ethereum_dapp_ecosystem_slide.html) - Slide format with details
-- [Logos Only Slide](https://htmlpreview.github.io/?https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/blob/main/ethereum_dapp_ecosystem_slide_logos_only.html) - Minimalist logo view
+- [Presentation Slide](https://htmlpreview.github.io/?https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/blob/main/ethereum_dapp_ecosystem_slide.html) - Slide format with details ([Download PNG](https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/raw/main/ethereum_dapp_ecosystem_slide.png))
+- [Logos Only Slide](https://htmlpreview.github.io/?https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/blob/main/ethereum_dapp_ecosystem_slide_logos_only.html) - Minimalist logo view ([Download PNG](https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/raw/main/ethereum_dapp_ecosystem_slide_logos_only.png))
+
+**PNG files are in 16:9 format (1920x1080) - perfect for presentations!**
 
 ## Overview
 
@@ -103,3 +105,7 @@ This project is provided as-is for educational and informational purposes.
 ## Contributing
 
 To add or update DApp information, modify the source data and regenerate the JSON file using the extraction script.
+
+## Get Your Own Ecosystem Toolkit
+
+Interested in similar ecosystem dashboards, analytics tools, or custom visualizations for your project? Reach out on Twitter [@erinmagennis](https://twitter.com/erinmagennis) to discuss building custom tooling for grants tracking, portfolio management, automated reporting, and more.

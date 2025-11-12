@@ -1,0 +1,23 @@
+{
+  "name": "ethereum_dapps_ecosystem_map",
+  "version": "1.0.0",
+  "description": "An interactive visualization of the Ethereum DApp ecosystem, showcasing applications across multiple categories.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erinmagennis/ethereum_dapps_ecosystem_map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erinmagennis/ethereum_dapps_ecosystem_map/issues"
+  },
+  "homepage": "https://github.com/erinmagennis/ethereum_dapps_ecosystem_map#readme",
+  "dependencies": {
+    "puppeteer": "^24.29.1"
+  }
+}
